@@ -1,0 +1,13 @@
+E:\project\InformPrivatSecurity\App\AppInformPrivateSecurity\bin\Debug\AppInformPrivateSecurity.exe.config
+E:\project\InformPrivatSecurity\App\AppInformPrivateSecurity\bin\Debug\AppInformPrivateSecurity.exe
+E:\project\InformPrivatSecurity\App\AppInformPrivateSecurity\bin\Debug\AppInformPrivateSecurity.pdb
+E:\project\InformPrivatSecurity\App\AppInformPrivateSecurity\obj\Debug\AppInformPrivateSecurity.csproj.AssemblyReference.cache
+E:\project\InformPrivatSecurity\App\AppInformPrivateSecurity\obj\Debug\AppInformPrivateSecurity.csproj.SuggestedBindingRedirects.cache
+E:\project\InformPrivatSecurity\App\AppInformPrivateSecurity\obj\Debug\AppInformPrivateSecurity.MainWindow.resources
+E:\project\InformPrivatSecurity\App\AppInformPrivateSecurity\obj\Debug\AppInformPrivateSecurity.Properties.Resources.resources
+E:\project\InformPrivatSecurity\App\AppInformPrivateSecurity\obj\Debug\AppInformPrivateSecurity.csproj.GenerateResource.cache
+E:\project\InformPrivatSecurity\App\AppInformPrivateSecurity\obj\Debug\AppInformPrivateSecurity.csproj.CoreCompileInputs.cache
+E:\project\InformPrivatSecurity\App\AppInformPrivateSecurity\obj\Debug\AppInformPrivateSecurity.exe
+E:\project\InformPrivatSecurity\App\AppInformPrivateSecurity\obj\Debug\AppInformPrivateSecurity.pdb
+E:\project\InformPrivatSecurity\App\AppInformPrivateSecurity\obj\Debug\AppInformPrivateSecurity.SprForm.resources
+E:\project\InformPrivatSecurity\App\AppInformPrivateSecurity\obj\Debug\AppInformPrivateSecurity.SprManipulation.resources

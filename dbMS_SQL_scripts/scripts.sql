@@ -118,8 +118,9 @@ create table PeriodicInspection(
 /*-------------------------------------------------------------------------------------
 	Справочник медецинских центров
 */-------------------------------------------------------------------------------------
-Use InformPrivateSecure
-go
+USE [InformPrivateSecure]
+GO
+/****** Object:  StoredProcedure [dbo].[AddMedicalCenter]    Script Date: 02.04.2023 1:44:15 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -127,24 +128,36 @@ GO
 -- =============================================
 -- Author:		'Оля - ля - ля' и 'Тру - ля - ля'
 -- Create date: 29.03.2023
--- Description:	Процедура пишет новое медецинское учереждение в таблицу
+-- Description:	Процедура пишет новый медецинский центр в таблицу
 -- =============================================
-CREATE PROCEDURE AddMedicalCenter	
+ALTER PROCEDURE [dbo].[AddMedicalCenter]	
 	@MedicalCenterName varchar(50), --Наименование медецинского центра
 	@addres varchar(50) null,		-- Адрес медецинского центра
-	@tel varchar(20) null			-- Телефон Центра
+	@tel varchar(20) null,			-- Телефон Центра
+	@id int  = null					-- Для изменения 
 AS
 BEGIN
 	SET NOCOUNT ON;
-	BEGIN TRY
-		INSERT INTO dbo.MedicalCenter([name], [addres], [tel]) VALUES (@MedicalCenterName, @addres, @tel);
+	BEGIN TRY	
+	if(@id is not null)
+	Begin
+		UPDATE dbo.MedicalCenter
+		set [name] =@MedicalCenterName,
+			[addres] =@addres,
+			[tel] = @tel
+		WHERE id =@id
+	END
+	ELSE
+	BEGIN
+		insert into dbo.MedicalCenter([name], [addres], [tel]) values (@MedicalCenterName, @addres, @tel);
 		SELECT cast(ID as varchar(10)) as id FROM dbo.MedicalCenter WHERE ID = @@IDENTITY
+	END
 	END TRY
 	BEGIN CATCH
-		SELECT 'Error' as id
+		select 'Error' as id
 	END CATCH
+
 END
-GO
 -- Вставляем туда данные 
 exec AddMedicalCenter 'ГБУЗППК', 'ул. Пушкина, 85, Пермь, Пермский край','8 (342) 236-44-31';
 exec AddMedicalCenter 'ГБУЗ №4', 'ул. Куфонина, 12, каб. 217, Пермь, Пермский край','8 (342) 222-01-09';
@@ -159,6 +172,9 @@ select * from dbo.MedicalCenter;
 /*---------------------------------------------------------------------------------------------------------------------
 	Справочник Разрядов Охраника
 */---------------------------------------------------------------------------------------------------------------------
+USE [InformPrivateSecure]
+GO
+/****** Object:  StoredProcedure [dbo].[AddDischarge]    Script Date: 02.04.2023 3:28:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -168,15 +184,26 @@ GO
 -- Create date: 29.03.2023
 -- Description:	Процедура добавляет Разряд охраника.
 -- =============================================
-CREATE PROCEDURE AddDischarge 
+ALTER PROCEDURE [dbo].[AddDischarge] 
 	@Discharge varchar(10), 
-	@discription varchar(50)
+	@discription varchar(50),
+	@id int null = null
 AS
 BEGIN	
 	SET NOCOUNT ON;
 	BEGIN TRY
-		INSERT INTO Discharge([code], [discription]) values (@Discharge, @discription);
-		SELECT id FROM Discharge WHERE id = @@IDENTITY;
+		IF(@id is not null)
+		BEGIN
+			UPDATE Discharge
+			set [code] = @Discharge,
+				[discription] =@discription
+			WHERE id =@id;
+		END
+		ELSE
+			BEGIN
+			INSERT INTO Discharge([code], [discription]) values (@Discharge, @discription);
+			SELECT id FROM Discharge WHERE id = @@IDENTITY;
+		END
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error';
@@ -190,9 +217,9 @@ Create view v_Discharge
 as
 select * from Discharge
 
-/*----------------------------------------------------------------------------------------------------------------------
-	Учебные заведения
-*/----------------------------------------------------------------------------------------------------------------------
+USE [InformPrivateSecure]
+GO
+/****** Object:  StoredProcedure [dbo].[AddEducationalInstitutions]    Script Date: 02.04.2023 3:27:42 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -202,23 +229,34 @@ GO
 -- Create date: 29.03.2023
 -- Description:	Процедура добавляет учебное заведение в справочник учебных заведений
 -- =============================================
-CREATE PROCEDURE AddEducationalInstitutions
+ALTER PROCEDURE [dbo].[AddEducationalInstitutions]
 	-- Add the parameters for the stored procedure here
 	@name varchar(50), 
 	@license varchar(50) null,
-	@address varchar(50) null
+	@address varchar(50) null,
+	@id int null  = null
 AS
 BEGIN
 	SET NOCOUNT ON;
 	BEGIN TRY
-		INSERT INTO EducationalInstitutions([name], [license],[address]) values (@name, @license,@address);
+		IF(@id is not null)
+		BEGIN
+			UPDATE dbo.EducationalInstitutions
+			set [name] = @name,
+				[license] =@license,
+				[address] =@address
+			WHERE id =@id
+		END
+		ELSE
+		BEGIN
+			INSERT INTO EducationalInstitutions([name], [license],[address]) values (@name, @license,@address);
+		END
 		SELECT id FROM EducationalInstitutions WHERE id = @@IDENTITY;
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error';
 	END CATCH
 END
-GO
 exec AddEducationalInstitutions 'ЧУ ДПО "Алекс"','025451 от 7 ноября 2011 г','город Пермь,ул.Комиссара Пожарского,д. 19';
 exec AddEducationalInstitutions 'ЧУ ДПО "Олимп"','59Л01 0003334 от 24 мая 2016 г','ул.Героев Хасана,д.7,корпус а,офис 251';
 exec AddEducationalInstitutions 'ЧУ ДПО"Спартак-Профи"','6465 от 19 августа 2019 г.',' город Пермь, ул. Плеханова, д. 39';
