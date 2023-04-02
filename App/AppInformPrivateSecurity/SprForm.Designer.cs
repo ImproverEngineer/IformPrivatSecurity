@@ -30,12 +30,12 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SprForm));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.SprGridView = new System.Windows.Forms.DataGridView();
             this.bntExcel = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.SprGridView = new System.Windows.Forms.DataGridView();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SprGridView)).BeginInit();
@@ -53,28 +53,6 @@
             this.panel1.Size = new System.Drawing.Size(800, 99);
             this.panel1.TabIndex = 0;
             // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.SprGridView);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 99);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(800, 351);
-            this.panel2.TabIndex = 1;
-            // 
-            // SprGridView
-            // 
-            this.SprGridView.AllowUserToAddRows = false;
-            this.SprGridView.AllowUserToDeleteRows = false;
-            this.SprGridView.AllowUserToResizeRows = false;
-            this.SprGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.SprGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SprGridView.Location = new System.Drawing.Point(0, 0);
-            this.SprGridView.Name = "SprGridView";
-            this.SprGridView.ReadOnly = true;
-            this.SprGridView.Size = new System.Drawing.Size(800, 351);
-            this.SprGridView.TabIndex = 0;
-            // 
             // bntExcel
             // 
             this.bntExcel.Image = global::AppInformPrivateSecurity.Properties.Resources.ExcelPicture__32x32_;
@@ -86,6 +64,7 @@
             this.bntExcel.Text = "Выгрузить";
             this.bntExcel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.bntExcel.UseVisualStyleBackColor = true;
+            this.bntExcel.Click += new System.EventHandler(this.bntExcel_Click);
             // 
             // btnUpdate
             // 
@@ -111,6 +90,7 @@
             this.btnDelete.Text = "Удалить";
             this.btnDelete.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnAdd
             // 
@@ -124,6 +104,28 @@
             this.btnAdd.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.SprGridView);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(0, 99);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(800, 351);
+            this.panel2.TabIndex = 1;
+            // 
+            // SprGridView
+            // 
+            this.SprGridView.AllowUserToAddRows = false;
+            this.SprGridView.AllowUserToDeleteRows = false;
+            this.SprGridView.AllowUserToResizeRows = false;
+            this.SprGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.SprGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SprGridView.Location = new System.Drawing.Point(0, 0);
+            this.SprGridView.Name = "SprGridView";
+            this.SprGridView.ReadOnly = true;
+            this.SprGridView.Size = new System.Drawing.Size(800, 351);
+            this.SprGridView.TabIndex = 0;
             // 
             // SprForm
             // 

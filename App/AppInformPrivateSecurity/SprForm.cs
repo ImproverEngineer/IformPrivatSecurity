@@ -10,7 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
-using AppInformPrivateSecurity.Data;
+using AppInformPrivateSecurity.Data; // подключаем базу данных.
+using AppInformPrivateSecurity.Report; // подключаем наши Рапорта.
 
 namespace AppInformPrivateSecurity
 {
@@ -96,15 +97,25 @@ namespace AppInformPrivateSecurity
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
+
+            int indexRow = getSelectedRow(); // получить индекс текущей строки
+
+            if (indexRow != -1)
+                createSprManipulationForm("UPDATE", SprGridView["id", indexRow].Value.ToString());
+        }
+        /// <summary>
+        /// Получить выделеную строку
+        /// </summary>
+        private int getSelectedRow()
+        {
             if (SprGridView.CurrentRow == null)
             {
                 MessageBox.Show("Необходимо выбрать строку для изменения", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                return -1;
             }
             int indexRow = SprGridView.CurrentRow.Index; // получить индекс текущей строки
-            createSprManipulationForm("UPDATE", SprGridView["id", indexRow].Value.ToString());
+            return indexRow;
         }
-
         #region Insert, Update для справочников.
         /// <summary>
         /// Процедура будет делать две операции вставки нового элемената и изменение текущего
@@ -121,5 +132,30 @@ namespace AppInformPrivateSecurity
             }
         }
         #endregion
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            int indexRow = getSelectedRow(); // получить индекс текущей строки
+            if (indexRow != -1)
+            {
+                dbSprService.deleteItemGridView(SprGridView["id", indexRow].Value.ToString(), typeSpr); //удаляем лишнию строку
+                updateGrid();                                                                                        //
+            }
+        }
+
+        private void bntExcel_Click(object sender, EventArgs e)
+        {
+            switch (typeSpr)
+            {
+                case "MEDICAL": print("Список медецинских центров"); break;
+                case "DISCHARCHE": print("Разряды работников"); break;
+                case "EDUCATION": print("Образовательные центры"); break;
+            }
+
+            void print(string title)
+            {
+                PrintSpr printRaport = new PrintSpr(title, SprGridView); // Создаем отчет
+            }
+        }
     }
 }

@@ -84,7 +84,6 @@ namespace AppInformPrivateSecurity.Data
             string Query = "SELECT id as 'id', name as 'Наименование', license as 'Лицензия', address as 'Адрес' FROM v_EducationalInstitutions";
             return getContent(Query);
         }
-
         /// <summary>
         /// Получаем элемент медецинское учереждение
         /// </summary>
@@ -129,6 +128,17 @@ namespace AppInformPrivateSecurity.Data
             string Query = "[dbo].[AddEducationalInstitutions] '" + name + "', '" + license + "', '" + addres + "' " + (id == null ? "; " : ", " + id + " ;");
             return executeRequest(Query);
         }
+        /// <summary>
+        /// удалям все ненужное из справочника
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="typeSpr"></param>
+        /// <returns></returns>
+        public bool deleteItemGridView(string id, string typeSpr)
+        {
+            string Query = "[dbo].[deleteFromSrp] " + id + ", '" + typeSpr + "' ";
+            return executeRequest(Query);
+        }
 
         #region Выполняем запрос на изменения данных
         /// <summary>
@@ -150,6 +160,10 @@ namespace AppInformPrivateSecurity.Data
             {
                 ErrorString = e.Message;
                 result = false;
+            }
+            finally
+            {
+                Connect.connect.Close();
             }
             return result;
         }
