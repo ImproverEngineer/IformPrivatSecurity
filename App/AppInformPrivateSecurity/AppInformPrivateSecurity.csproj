@@ -58,6 +58,13 @@
       <DependentUpon>AppInform.cs</DependentUpon>
     </Compile>
     <Compile Include="Data\DBConnect.cs" />
+    <Compile Include="Data\DBLib.cs" />
+    <Compile Include="MedicalComission.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MedicalComission.Designer.cs">
+      <DependentUpon>MedicalComission.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Report\PrintSpr.cs" />
@@ -73,8 +80,17 @@
     <Compile Include="SprManipulation.Designer.cs">
       <DependentUpon>SprManipulation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Сharacteristic.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Сharacteristic.Designer.cs">
+      <DependentUpon>Сharacteristic.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AppInform.resx">
       <DependentUpon>AppInform.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MedicalComission.resx">
+      <DependentUpon>MedicalComission.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -91,6 +107,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SprManipulation.resx">
       <DependentUpon>SprManipulation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Сharacteristic.resx">
+      <DependentUpon>Сharacteristic.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

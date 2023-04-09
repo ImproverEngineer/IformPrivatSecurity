@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data;
 using System.Net.Sockets;
+using System.Runtime.Remoting.Contexts;
 
 namespace AppInformPrivateSecurity.Data
 {
@@ -41,22 +42,118 @@ namespace AppInformPrivateSecurity.Data
                 errorString = ex.Message;
             }
         }
-    }
-    #endregion
-
-    #region Класс DBServiceMedical предостовляет робочую область выполнения запросов в пространстве "cправочников"
-    public class DBServiceSpr
-    {
-        public String ErrorString = "";
-        private DBConnect Connect;
-        public DBServiceSpr()
+        /// <summary>
+        /// Паттерн фабрика создаем объект DBConnect.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="DBException"></exception>
+        public static DBConnect createDBConnect()
         {
-            Connect = new DBConnect(GlobalValues.ConnectionString);
+            DBConnect Connect = new DBConnect(GlobalValues.ConnectionString);
             if (!String.IsNullOrEmpty(Connect.errorString))
             {
                 throw new DBException("Ошибка подключения к Базе Данных", Connect.errorString);
             }
+            return Connect;
         }
+    }
+    #endregion
+
+    public class Employeer : СreateQuery
+    {
+
+        #region Получить работников
+        /// <summary>
+        /// Получить работников
+        /// </summary>
+        /// <returns></returns>
+        public DataTable getWorkers()
+        {
+            string Query = "SELECT " +
+                           " id as 'id'," +
+                           " name as 'Имя'," +
+                           " surname as 'Фамилия'," +
+                           " middleName as 'Отчество'," +
+                           " birthday as 'Дата рождения'," +
+                           " telefon as 'Телефон'," +
+                           " deleted as 'Уволен'" +
+                           " FROM [dbo].[v_Workers]";
+            return getContent(Query);
+        }
+        #endregion
+
+        #region Записать работника
+        /// <summary>
+        /// Записать работника 
+        /// </summary>
+        /// <param name="name">Имя</param>
+        /// <param name="surname">Фамилия</param>
+        /// <param name="middleNema">Отчество</param>
+        /// <param name="birthday">День рождения</param>
+        /// <param name="telefon">Телефон</param>
+        /// <param name="photo">Путь до фото</param>
+        /// <returns></returns>
+        public string saveEmploeer(string name, string surname, string middleNema, string birthday, string telefon, string photo)
+        {
+            try
+            {
+                string Query = "exec [dbo].[AddEmployee] '" + name + "', '" + surname + "', '" + middleNema + "', '" + birthday + "', '" + telefon + "', '" + photo + "';";
+                return executeRequestIsert(Query);
+
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        public List<string> informationWorker(string id)
+        {
+            string Query = "SELECT  name as 'name'," +
+                           " surname as 'surname'," +
+                           " middleName as 'middleName'," +
+                           " birthday as 'bithday'," +
+                           " telefon as 'telefon'," +
+                           " photo as 'photo'" +
+                           " FROM [dbo].[v_Workers] WHERE id = " + id + ";";
+            return getElement(Query);
+        }
+
+        /// <summary>
+        /// Получаем последний вставленный элемент в таблице Workers
+        /// </summary>
+        /// <returns></returns>
+        public List<string> getIdLastInsertEmploeer()
+        {
+            string Query = "SELECT top 1 id FROM [dbo].[Workers] order by id desc"; //тут типа ошибка новичка но не очень такая существенная 
+            return getElement(Query);
+        }
+    }
+
+    public class MedicalForm : СreateQuery
+    {
+        /// <summary>
+        /// Получить список медецинских центров
+        /// </summary>
+        /// <returns></returns>
+        public List<string> getMedicalCenters()
+        {
+            string Query = "SELECT addres FROM v_MedicalCenter";
+            return getElement(Query);
+        }
+
+        internal void UpdateCommision(object id_medicalCenter, string stMedicalCenter, string stCode, string stDateCreate, string stDatePeriod, string stDateRenewal)
+        {
+            string Query = "";
+            executeRequest(Query);
+
+        }
+    }
+
+    #region Класс DBService предостовляет робочую область выполнения запросов в пространстве "cправочников"
+    public class DBServiceSpr : СreateQuery
+    {
         /// <summary>
         /// Получаем медецинские центры. 
         /// </summary>
@@ -140,13 +237,56 @@ namespace AppInformPrivateSecurity.Data
             return executeRequest(Query);
         }
 
+    }
+    #endregion
+
+    #region Запросы к БД
+    public class СreateQuery
+    {
+        protected String ErrorString = "";
+        private DBConnect Connect;
+
+        public СreateQuery()
+        {
+            Connect = DBConnect.createDBConnect();
+        }
+
+        #region Выполняем запрос на изменения данных и возврат результата выполнения
+        /// <summary>
+        /// Выполняем запрос без возврата
+        /// </summary>
+        /// <param name="Query">Запрос</param>
+        /// <returns>результа выполнения</returns>
+        protected string executeRequestIsert(string Query)
+        {
+            string result = "";
+            Connect.connect.Open();
+            try
+            {
+                SqlCommand cmd = new SqlCommand(Query, Connect.connect);
+                string st = cmd.ExecuteScalar().ToString();
+                result = st;
+            }
+            catch (SqlException e)
+            {
+                ErrorString = e.Message;
+                result = null;
+            }
+            finally
+            {
+                Connect.connect.Close();
+            }
+            return result;
+        }
+        #endregion
+
         #region Выполняем запрос на изменения данных
         /// <summary>
         /// Выполняем запрос без возврата
         /// </summary>
         /// <param name="Query">Запрос</param>
         /// <returns>результа выполнения</returns>
-        private bool executeRequest(string Query)
+        protected bool executeRequest(string Query)
         {
             bool result = false;
             Connect.connect.Open();
@@ -169,13 +309,13 @@ namespace AppInformPrivateSecurity.Data
         }
         #endregion
 
-        #region получение справочников по одной записи
+        #region Получить список записей по условию
         /// <summary>
         /// Получить список записей по условию
         /// </summary>
         /// <param name="Query">Запрос</param>
         /// <returns></returns>
-        private List<String> getElement(string Query)
+        protected List<String> getElement(string Query)
         {
             List<String> list = new List<String>();
             Connect.connect.Open();
@@ -189,7 +329,8 @@ namespace AppInformPrivateSecurity.Data
                     {
                         for (int i = 0; i < reader.VisibleFieldCount; i++)
                         {
-                            list.Add(reader.GetString(i));
+                            // list.Add(reader.GetString(i).ToString());
+                            list.Add(reader[i].ToString());
                         }
                     }
                 }
@@ -207,7 +348,7 @@ namespace AppInformPrivateSecurity.Data
         #endregion
 
         #region Получаем DataTable для заполнения полей GridView.
-        private DataTable getContent(string Query)
+        protected DataTable getContent(string Query)
         {
             DataTable dt = new DataTable();
             try

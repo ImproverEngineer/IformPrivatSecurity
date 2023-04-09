@@ -49,6 +49,7 @@ create table MedicalCommission(
 	CONSTRAINT PK_MedicalCommission PRIMARY KEY ([id]),
 	CONSTRAINT FK_MedikalCenter FOREIGN KEY ([medicalCenterID]) REFERENCES MedicalCenter([id])
 )
+alter table MedicalCommission add workersId int null
 
 create table Discharge(
 	[id] int Identity(1,1) PRIMARY KEY NOT NULL,
@@ -264,3 +265,18 @@ exec AddEducationalInstitutions 'ЧУ ДПО"Спартак-Профи"','6465 от 19 августа 2019
 Create view v_EducationalInstitutions
 as
 select * from EducationalInstitutions
+--Получить работников
+use InformPrivateSecure
+go
+drop view dbo.v_workers
+create view dbo.v_workers
+as
+select
+id as 'id'
+, name as 'name'
+, surname as 'surname'
+, middleName as 'middleName'
+, birthday as 'birthday'
+, telefon as 'telefon'  
+, deleted as 'deletec'
+from [dbo].[Workers] w ;

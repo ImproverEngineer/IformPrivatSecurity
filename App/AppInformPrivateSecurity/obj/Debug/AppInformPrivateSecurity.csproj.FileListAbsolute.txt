@@ -12,3 +12,5 @@ E:\project\InformPrivatSecurity\App\AppInformPrivateSecurity\obj\Debug\AppInform
 E:\project\InformPrivatSecurity\App\AppInformPrivateSecurity\obj\Debug\AppInformPrivateSecurity.SprForm.resources
 E:\project\InformPrivatSecurity\App\AppInformPrivateSecurity\obj\Debug\AppInformPrivateSecurity.SprManipulation.resources
 E:\project\InformPrivatSecurity\App\AppInformPrivateSecurity\obj\Debug\AppInformPrivateSecurity.csproj.ResolveComReference.cache
+E:\project\InformPrivatSecurity\App\AppInformPrivateSecurity\obj\Debug\AppInformPrivateSecurity.Сharacteristic.resources
+E:\project\InformPrivatSecurity\App\AppInformPrivateSecurity\obj\Debug\AppInformPrivateSecurity.MedicalComission.resources
