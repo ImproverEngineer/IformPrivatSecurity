@@ -33,14 +33,13 @@
             this.lab_cod = new System.Windows.Forms.Label();
             this.lab_Date = new System.Windows.Forms.Label();
             this.lab_valid = new System.Windows.Forms.Label();
-            this.lab_RenewalDate = new System.Windows.Forms.Label();
             this.combo_Centers = new System.Windows.Forms.ComboBox();
             this.textBoxCod = new System.Windows.Forms.TextBox();
             this.dateCreate = new System.Windows.Forms.DateTimePicker();
-            this.datePeriod = new System.Windows.Forms.DateTimePicker();
-            this.dateRenewal = new System.Windows.Forms.DateTimePicker();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.numMonthValid = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.numMonthValid)).BeginInit();
             this.SuspendLayout();
             // 
             // lab_MedicalCenter
@@ -79,19 +78,9 @@
             this.lab_valid.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lab_valid.Location = new System.Drawing.Point(12, 177);
             this.lab_valid.Name = "lab_valid";
-            this.lab_valid.Size = new System.Drawing.Size(145, 20);
+            this.lab_valid.Size = new System.Drawing.Size(194, 20);
             this.lab_valid.TabIndex = 3;
-            this.lab_valid.Text = "Период действия";
-            // 
-            // lab_RenewalDate
-            // 
-            this.lab_RenewalDate.AutoSize = true;
-            this.lab_RenewalDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lab_RenewalDate.Location = new System.Drawing.Point(12, 229);
-            this.lab_RenewalDate.Name = "lab_RenewalDate";
-            this.lab_RenewalDate.Size = new System.Drawing.Size(136, 20);
-            this.lab_RenewalDate.TabIndex = 4;
-            this.lab_RenewalDate.Text = "Дата продления";
+            this.lab_valid.Text = "Период действия в мес.";
             // 
             // combo_Centers
             // 
@@ -124,30 +113,10 @@
             this.dateCreate.Size = new System.Drawing.Size(305, 26);
             this.dateCreate.TabIndex = 7;
             // 
-            // datePeriod
-            // 
-            this.datePeriod.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.datePeriod.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.datePeriod.Location = new System.Drawing.Point(203, 172);
-            this.datePeriod.Name = "datePeriod";
-            this.datePeriod.Size = new System.Drawing.Size(305, 26);
-            this.datePeriod.TabIndex = 8;
-            // 
-            // dateRenewal
-            // 
-            this.dateRenewal.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dateRenewal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.dateRenewal.Location = new System.Drawing.Point(203, 224);
-            this.dateRenewal.Name = "dateRenewal";
-            this.dateRenewal.Size = new System.Drawing.Size(305, 26);
-            this.dateRenewal.TabIndex = 9;
-            // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(165, 325);
+            this.button1.Location = new System.Drawing.Point(164, 237);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(96, 40);
             this.button1.TabIndex = 15;
@@ -158,26 +127,33 @@
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(282, 325);
+            this.button2.Location = new System.Drawing.Point(280, 237);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(96, 40);
             this.button2.TabIndex = 16;
             this.button2.Text = "Отменить";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // numMonthValid
+            // 
+            this.numMonthValid.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.numMonthValid.Location = new System.Drawing.Point(203, 175);
+            this.numMonthValid.Name = "numMonthValid";
+            this.numMonthValid.Size = new System.Drawing.Size(305, 26);
+            this.numMonthValid.TabIndex = 17;
             // 
             // MedicalComission
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(531, 393);
+            this.ClientSize = new System.Drawing.Size(531, 303);
+            this.Controls.Add(this.numMonthValid);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.dateRenewal);
-            this.Controls.Add(this.datePeriod);
             this.Controls.Add(this.dateCreate);
             this.Controls.Add(this.textBoxCod);
             this.Controls.Add(this.combo_Centers);
-            this.Controls.Add(this.lab_RenewalDate);
             this.Controls.Add(this.lab_valid);
             this.Controls.Add(this.lab_Date);
             this.Controls.Add(this.lab_cod);
@@ -186,6 +162,7 @@
             this.Name = "MedicalComission";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "MedicalComission";
+            ((System.ComponentModel.ISupportInitialize)(this.numMonthValid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -197,13 +174,11 @@
         private System.Windows.Forms.Label lab_cod;
         private System.Windows.Forms.Label lab_Date;
         private System.Windows.Forms.Label lab_valid;
-        private System.Windows.Forms.Label lab_RenewalDate;
         private System.Windows.Forms.ComboBox combo_Centers;
         private System.Windows.Forms.TextBox textBoxCod;
         private System.Windows.Forms.DateTimePicker dateCreate;
-        private System.Windows.Forms.DateTimePicker datePeriod;
-        private System.Windows.Forms.DateTimePicker dateRenewal;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.NumericUpDown numMonthValid;
     }
 }

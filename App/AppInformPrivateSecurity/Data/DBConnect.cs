@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Net.Sockets;
 using System.Runtime.Remoting.Contexts;
+using Microsoft.SqlServer.Server;
 
 namespace AppInformPrivateSecurity.Data
 {
@@ -108,6 +109,7 @@ namespace AppInformPrivateSecurity.Data
         }
         #endregion
 
+        #region получить данные работника
         public List<string> informationWorker(string id)
         {
             string Query = "SELECT  name as 'name'," +
@@ -119,7 +121,21 @@ namespace AppInformPrivateSecurity.Data
                            " FROM [dbo].[v_Workers] WHERE id = " + id + ";";
             return getElement(Query);
         }
-
+        #endregion
+        #region Получить данные о медецинской комиссии
+        /// <summary>
+        /// Получить данные о медециннской комиссии работника
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public DataTable MedicalCommission(string id)
+        {
+            string Query = @"select m.[name] as 'Клиника', m.[code] as 'Код', m.[Date] as 'Дата прохождения', m.[valiedPeriod] as 'Количество мес. действия', DATEADD(MONTH,valiedPeriod,Date) as 'Дата продления'
+                             from dbo.v_MedicalCommission m 
+                             where m.workersId = " + id;
+            return getContent(Query);
+        }
+        #endregion
         /// <summary>
         /// Получаем последний вставленный элемент в таблице Workers
         /// </summary>
@@ -139,16 +155,24 @@ namespace AppInformPrivateSecurity.Data
         /// <returns></returns>
         public List<string> getMedicalCenters()
         {
-            string Query = "SELECT addres FROM v_MedicalCenter";
+            string Query = "SELECT name FROM v_MedicalCenter";
             return getElement(Query);
         }
 
-        internal void UpdateCommision(object id_medicalCenter, string stMedicalCenter, string stCode, string stDateCreate, string stDatePeriod, string stDateRenewal)
+        internal void UpdateCommission(object id_Worker, string stMedicalCenter, string stCode, string stDateCreate, string stDatePeriod)
         {
-            string Query = "";
+            string Query = "exec dbo.UpdateMedicalCommission " + id_Worker + ", '" + stMedicalCenter + "', '" + stCode + "', '" + stDateCreate + "', " + stDatePeriod + ";";
             executeRequest(Query);
 
         }
+        public List<string> getCurrentMedicalProperties(string id)
+        {
+            string Query = @"select m.[name] as 'name', m.[code] as 'code', m.[Date] as 'Data', m.[valiedPeriod] as 'valiedPeriod', DATEADD(MONTH,valiedPeriod, Date)  as [extenxionDate] 
+                             from [dbo].[v_MedicalCommission] m                             
+                             where m.workersId = " + id + ";";
+            return getElement(Query);
+        }
+
     }
 
     #region Класс DBService предостовляет робочую область выполнения запросов в пространстве "cправочников"

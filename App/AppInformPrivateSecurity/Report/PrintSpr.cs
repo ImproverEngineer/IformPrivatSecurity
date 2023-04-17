@@ -8,14 +8,34 @@ using Excel = Microsoft.Office.Interop.Excel;
 
 namespace AppInformPrivateSecurity.Report
 {
-    #region Отчёт по справочникам.
-    internal class PrintSpr : IDisposable
+    #region Направление на прохождение медкомисии
+    internal class PrintMedicalDirection : Print
     {
-        Excel.Application app = null;
-        Excel.Workbook wb = null;
-        Excel.Worksheet sheet = null;
-        private bool disposed = false;
-        DataGridView SprGridView;
+        string path = Environment.CurrentDirectory;
+        public PrintMedicalDirection(List<string> infoWorker)
+        {
+            this.app = new Excel.Application
+            {
+                Visible = true,
+                SheetsInNewWorkbook = 1
+
+            };
+            //открываем файл с текущей дерикторией
+            this.wb = app.Workbooks.Open(path + @"\Tamplate\Направление на Мед.комиссию.xltx");
+            //открываем нужный лист
+            this.sheet = (Excel.Worksheet)app.Worksheets["Направление на мед. комиссию"];
+            int row = 14;
+            this.sheet.Cells[row, 7].value = infoWorker[0] + " " + infoWorker[1] + " " + infoWorker[2];
+            row += 2;
+            this.sheet.Cells[row, 12].value = DateTime.Parse(infoWorker[3]).ToString("dd.MM.yyyy");
+            Dispose();
+        }
+    }
+    #endregion
+
+    #region Отчёт по справочникам.
+    internal class PrintSpr : Print
+    {
         public PrintSpr(string title, DataGridView dataGridView)
         {
             this.SprGridView = dataGridView;
@@ -84,32 +104,51 @@ namespace AppInformPrivateSecurity.Report
             sheet.Cells[row, col].HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter; //выравниванин по горизонтали
         }
 
-
-        #region Чистим память после создания отчёта
-        /// <summary>
-        /// Освобождаем память, тут надо сделать паяснение при работе с COM объектами лучше следить за памятью а то мало ли чего.
-        /// </summary>
-        public void Dispose()
-        {
-            Dispose(true);
-            // подавляем финализацию
-            GC.SuppressFinalize(this);
-        }
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposed) return;
-            if (disposing)
-            {
-                this.sheet = null;
-                this.wb = null;
-                this.app = null;
-            }
-            // освобождаем неуправляемые объекты
-            disposed = true;
-        }
-        #endregion
     }
     #endregion
 
+    #region Суперакласс построения отчетов
+    abstract class Print : IDisposable
+    {
+        protected Excel.Application app = null;
+        protected Excel.Workbook wb = null;
+        protected Excel.Worksheet sheet = null;
+        protected bool disposed = false;
+        protected DataGridView SprGridView;
+        private bool disposedValue;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    // TODO: освободить управляемое состояние (управляемые объекты)
+                    this.sheet = null;
+                    this.wb = null;
+                    this.app = null;
+                }
+
+                // TODO: освободить неуправляемые ресурсы (неуправляемые объекты) и переопределить метод завершения
+                // TODO: установить значение NULL для больших полей
+                disposedValue = true;
+            }
+        }
+
+        // // TODO: переопределить метод завершения, только если "Dispose(bool disposing)" содержит код для освобождения неуправляемых ресурсов
+        // ~Print()
+        // {
+        //     // Не изменяйте этот код. Разместите код очистки в методе "Dispose(bool disposing)".
+        //     Dispose(disposing: false);
+        // }
+
+        public void Dispose()
+        {
+            // Не изменяйте этот код. Разместите код очистки в методе "Dispose(bool disposing)".
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+    }
+    #endregion
 
 }

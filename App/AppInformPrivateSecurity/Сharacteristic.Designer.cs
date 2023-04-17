@@ -28,10 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Сharacteristic));
             this.tabEmployee = new System.Windows.Forms.TabControl();
             this.EmployeePage = new System.Windows.Forms.TabPage();
             this.addPhoto = new System.Windows.Forms.Button();
+            this.imgPhoto = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
             this.phoneBox = new System.Windows.Forms.TextBox();
             this.dataBirthday = new System.Windows.Forms.DateTimePicker();
@@ -46,23 +49,23 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.MedicalPage = new System.Windows.Forms.TabPage();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridMedical = new System.Windows.Forms.DataGridView();
             this.panel3 = new System.Windows.Forms.Panel();
             this.AddMedicalComission = new System.Windows.Forms.Button();
             this.openImgDialog = new System.Windows.Forms.OpenFileDialog();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.imgPhoto = new System.Windows.Forms.PictureBox();
+            this.button3 = new System.Windows.Forms.Button();
             this.tabEmployee.SuspendLayout();
             this.EmployeePage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imgPhoto)).BeginInit();
             this.IdentityPage.SuspendLayout();
             this.MedicalPage.SuspendLayout();
             this.panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridMedical)).BeginInit();
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.imgPhoto)).BeginInit();
             this.SuspendLayout();
             // 
             // tabEmployee
@@ -110,6 +113,15 @@
             this.addPhoto.Text = "Добавить";
             this.addPhoto.UseVisualStyleBackColor = true;
             this.addPhoto.Click += new System.EventHandler(this.addPhoto_Click);
+            // 
+            // imgPhoto
+            // 
+            this.imgPhoto.Location = new System.Drawing.Point(27, 46);
+            this.imgPhoto.Name = "imgPhoto";
+            this.imgPhoto.Size = new System.Drawing.Size(194, 228);
+            this.imgPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.imgPhoto.TabIndex = 10;
+            this.imgPhoto.TabStop = false;
             // 
             // label2
             // 
@@ -234,24 +246,45 @@
             // 
             // panel4
             // 
-            this.panel4.Controls.Add(this.dataGridView1);
+            this.panel4.Controls.Add(this.dataGridMedical);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(0, 51);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(792, 303);
             this.panel4.TabIndex = 3;
             // 
-            // dataGridView1
+            // dataGridMedical
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(792, 303);
-            this.dataGridView1.TabIndex = 0;
+            this.dataGridMedical.AllowUserToAddRows = false;
+            this.dataGridMedical.AllowUserToDeleteRows = false;
+            this.dataGridMedical.AllowUserToResizeRows = false;
+            this.dataGridMedical.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridMedical.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridMedical.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridMedical.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridMedical.Location = new System.Drawing.Point(0, 0);
+            this.dataGridMedical.Name = "dataGridMedical";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridMedical.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dataGridMedical.Size = new System.Drawing.Size(792, 303);
+            this.dataGridMedical.TabIndex = 0;
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.button3);
             this.panel3.Controls.Add(this.AddMedicalComission);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(0, 0);
@@ -265,7 +298,7 @@
             this.AddMedicalComission.Name = "AddMedicalComission";
             this.AddMedicalComission.Size = new System.Drawing.Size(120, 42);
             this.AddMedicalComission.TabIndex = 0;
-            this.AddMedicalComission.Text = "Добавить Мед. комиссию";
+            this.AddMedicalComission.Text = "Изменить Мед. комиссию";
             this.AddMedicalComission.UseVisualStyleBackColor = true;
             this.AddMedicalComission.Click += new System.EventHandler(this.AddMedicalComission_Click);
             // 
@@ -305,14 +338,18 @@
             this.panel1.Size = new System.Drawing.Size(800, 66);
             this.panel1.TabIndex = 15;
             // 
-            // imgPhoto
+            // button3
             // 
-            this.imgPhoto.Location = new System.Drawing.Point(27, 46);
-            this.imgPhoto.Name = "imgPhoto";
-            this.imgPhoto.Size = new System.Drawing.Size(194, 228);
-            this.imgPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.imgPhoto.TabIndex = 10;
-            this.imgPhoto.TabStop = false;
+            this.button3.Image = global::AppInformPrivateSecurity.Properties.Resources.ExcelPicture__32x32_;
+            this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button3.Location = new System.Drawing.Point(577, 3);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(207, 42);
+            this.button3.TabIndex = 1;
+            this.button3.Text = "Направление на мед. комиссию";
+            this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // Сharacteristic
             // 
@@ -328,13 +365,13 @@
             this.tabEmployee.ResumeLayout(false);
             this.EmployeePage.ResumeLayout(false);
             this.EmployeePage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imgPhoto)).EndInit();
             this.IdentityPage.ResumeLayout(false);
             this.MedicalPage.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridMedical)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.imgPhoto)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -363,8 +400,9 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridMedical;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Button AddMedicalComission;
+        private System.Windows.Forms.Button button3;
     }
 }

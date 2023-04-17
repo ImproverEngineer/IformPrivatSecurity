@@ -1,4 +1,5 @@
 ﻿using AppInformPrivateSecurity.Data;
+using AppInformPrivateSecurity.Report;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,6 +19,7 @@ namespace AppInformPrivateSecurity
         private string PhotoString = "";
         Employeer employeer = null;
         private string id = null;
+        private List<string> informatinWorker;
         public Сharacteristic(string id = null)
         {
             InitializeComponent();
@@ -30,7 +32,7 @@ namespace AppInformPrivateSecurity
             if (!string.IsNullOrEmpty(id))
             {
                 List<string> ls = employeer.informationWorker(id);
-                List<string> g = ls.ToList();
+                informatinWorker = ls;
                 nameBox.Text = ls[0];
                 surmaneBox.Text = ls[1];
                 middleBox.Text = ls[2];
@@ -41,9 +43,15 @@ namespace AppInformPrivateSecurity
                 imgPhoto.Invalidate();
                 MedicalPage.Parent = tabEmployee;
                 IdentityPage.Parent = tabEmployee;
+                UpdateDataGridMedical(this.id); // обновление таблицы работников
                 // получить фото
                 // заполнить поля
             }
+
+        }
+        private void UpdateDataGridMedical(string id)
+        {
+            dataGridMedical.DataSource = employeer.MedicalCommission(id);
         }
 
         /// <summary>
@@ -108,8 +116,14 @@ namespace AppInformPrivateSecurity
 
             if (medicalComission.ShowDialog() == DialogResult.OK)
             {
-
+                //если внесли изменения обновляем таблицу с медецинским осведетельствованием.
+                UpdateDataGridMedical(this.id);
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            PrintMedicalDirection medicalDirection = new PrintMedicalDirection(informatinWorker);
         }
     }
 }
