@@ -29,8 +29,13 @@ namespace AppInformPrivateSecurity
         {
             combo_Centers.SelectedIndex = combo_Centers.Items.IndexOf(lMedical[0]);
             textBoxCod.Text = lMedical[1];
-            dateCreate.Value = DateTime.Parse(lMedical[2]);
-            numMonthValid.Value = int.Parse(lMedical[3]);
+            if (lMedical[2] != "")
+            {
+                dateCreate.Value = DateTime.Parse(lMedical[2]);
+                numMonthValid.Value = int.Parse(lMedical[3]);
+            }
+            dateCreate.Value = DateTime.Now;
+            numMonthValid.Value = 12; // начиная от начала года. 
         }
         private void button1_Click(object sender, EventArgs e)
         {
