@@ -14,3 +14,9 @@ E:\project\InformPrivatSecurity\App\AppInformPrivateSecurity\obj\Debug\AppInform
 E:\project\InformPrivatSecurity\App\AppInformPrivateSecurity\obj\Debug\AppInformPrivateSecurity.csproj.ResolveComReference.cache
 E:\project\InformPrivatSecurity\App\AppInformPrivateSecurity\obj\Debug\AppInformPrivateSecurity.Сharacteristic.resources
 E:\project\InformPrivatSecurity\App\AppInformPrivateSecurity\obj\Debug\AppInformPrivateSecurity.MedicalComission.resources
+E:\project\InformPrivatSecurity\App\AppInformPrivateSecurity\obj\Debug\AppInformPrivateSecurity.IdentityCard.resources
+E:\project\InformPrivatSecurity\App\AppInformPrivateSecurity\obj\Debug\AppInformPrivateSecurity.PeriodicInspection.resources
+E:\project\InformPrivatSecurity\App\AppInformPrivateSecurity\obj\Debug\AppInformPrivateSecurity.AppUser.resources
+E:\project\InformPrivatSecurity\App\AppInformPrivateSecurity\obj\Debug\AppInformPrivateSecurity.Administration.resources
+E:\project\InformPrivatSecurity\App\AppInformPrivateSecurity\obj\Debug\AppInformPrivateSecurity.AddUser.resources
+E:\project\InformPrivatSecurity\App\AppInformPrivateSecurity\obj\Debug\AppInformPrivateSecurity.DatePeriodicCommission.resources

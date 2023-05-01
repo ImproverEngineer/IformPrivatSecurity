@@ -63,9 +63,29 @@ namespace AppInformPrivateSecurity.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap createExam {
+            get {
+                object obj = ResourceManager.GetObject("createExam", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap cross__32x32_ {
             get {
                 object obj = ResourceManager.GetObject("cross (32x32)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap exam2 {
+            get {
+                object obj = ResourceManager.GetObject("exam2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

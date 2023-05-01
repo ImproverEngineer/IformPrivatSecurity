@@ -51,19 +51,55 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="addUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="addUser.Designer.cs">
+      <DependentUpon>addUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Administration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Administration.Designer.cs">
+      <DependentUpon>Administration.cs</DependentUpon>
+    </Compile>
     <Compile Include="AppInform.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AppInform.Designer.cs">
       <DependentUpon>AppInform.cs</DependentUpon>
     </Compile>
+    <Compile Include="AppUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AppUser.Designer.cs">
+      <DependentUpon>AppUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Data\DBConnect.cs" />
     <Compile Include="Data\DBLib.cs" />
+    <Compile Include="DatePeriodicCommission.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DatePeriodicCommission.Designer.cs">
+      <DependentUpon>DatePeriodicCommission.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IdentityCard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IdentityCard.Designer.cs">
+      <DependentUpon>IdentityCard.cs</DependentUpon>
+    </Compile>
     <Compile Include="MedicalComission.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MedicalComission.Designer.cs">
       <DependentUpon>MedicalComission.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PeriodicInspection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PeriodicInspection.Designer.cs">
+      <DependentUpon>PeriodicInspection.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -86,11 +122,29 @@
     <Compile Include="Сharacteristic.Designer.cs">
       <DependentUpon>Сharacteristic.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="addUser.resx">
+      <DependentUpon>addUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Administration.resx">
+      <DependentUpon>Administration.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AppInform.resx">
       <DependentUpon>AppInform.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AppUser.resx">
+      <DependentUpon>AppUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DatePeriodicCommission.resx">
+      <DependentUpon>DatePeriodicCommission.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IdentityCard.resx">
+      <DependentUpon>IdentityCard.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MedicalComission.resx">
       <DependentUpon>MedicalComission.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PeriodicInspection.resx">
+      <DependentUpon>PeriodicInspection.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -141,6 +195,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="logo_secur.ico" />
+    <None Include="Resources\exam2.png" />
+    <None Include="Resources\createExam.png" />
     <None Include="Resources\cross %2832x32%29.png" />
     <None Include="Resources\Mark.png" />
     <None Include="Resources\ExcelPicture %2832x32%29.png" />

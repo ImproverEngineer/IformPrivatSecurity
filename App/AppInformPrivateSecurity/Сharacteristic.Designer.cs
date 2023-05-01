@@ -47,20 +47,29 @@
             this.nameBox = new System.Windows.Forms.TextBox();
             this.IdentityPage = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.dataIdentityCard = new System.Windows.Forms.DataGridView();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.CreateIdentityCard = new System.Windows.Forms.Button();
+            this.ChengeIdenty = new System.Windows.Forms.Button();
             this.MedicalPage = new System.Windows.Forms.TabPage();
             this.panel4 = new System.Windows.Forms.Panel();
             this.dataGridMedical = new System.Windows.Forms.DataGridView();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.button3 = new System.Windows.Forms.Button();
             this.AddMedicalComission = new System.Windows.Forms.Button();
             this.openImgDialog = new System.Windows.Forms.OpenFileDialog();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button3 = new System.Windows.Forms.Button();
             this.tabEmployee.SuspendLayout();
             this.EmployeePage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgPhoto)).BeginInit();
             this.IdentityPage.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataIdentityCard)).BeginInit();
+            this.flowLayoutPanel1.SuspendLayout();
             this.MedicalPage.SuspendLayout();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridMedical)).BeginInit();
@@ -227,11 +236,63 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.panel5);
+            this.panel2.Controls.Add(this.flowLayoutPanel1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(3, 3);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(786, 348);
             this.panel2.TabIndex = 0;
+            // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.dataIdentityCard);
+            this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel5.Location = new System.Drawing.Point(0, 51);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(786, 297);
+            this.panel5.TabIndex = 2;
+            // 
+            // dataIdentityCard
+            // 
+            this.dataIdentityCard.AllowUserToAddRows = false;
+            this.dataIdentityCard.AllowUserToDeleteRows = false;
+            this.dataIdentityCard.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataIdentityCard.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataIdentityCard.Location = new System.Drawing.Point(0, 0);
+            this.dataIdentityCard.Name = "dataIdentityCard";
+            this.dataIdentityCard.Size = new System.Drawing.Size(786, 297);
+            this.dataIdentityCard.TabIndex = 0;
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.CreateIdentityCard);
+            this.flowLayoutPanel1.Controls.Add(this.ChengeIdenty);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(786, 51);
+            this.flowLayoutPanel1.TabIndex = 1;
+            // 
+            // CreateIdentityCard
+            // 
+            this.CreateIdentityCard.Location = new System.Drawing.Point(3, 3);
+            this.CreateIdentityCard.Name = "CreateIdentityCard";
+            this.CreateIdentityCard.Size = new System.Drawing.Size(120, 42);
+            this.CreateIdentityCard.TabIndex = 1;
+            this.CreateIdentityCard.Text = "Добавить удостоверение";
+            this.CreateIdentityCard.UseVisualStyleBackColor = true;
+            this.CreateIdentityCard.Click += new System.EventHandler(this.CreateIdentityCard_Click);
+            // 
+            // ChengeIdenty
+            // 
+            this.ChengeIdenty.Location = new System.Drawing.Point(129, 3);
+            this.ChengeIdenty.Name = "ChengeIdenty";
+            this.ChengeIdenty.Size = new System.Drawing.Size(120, 42);
+            this.ChengeIdenty.TabIndex = 2;
+            this.ChengeIdenty.Text = "Изменить удостоверение";
+            this.ChengeIdenty.UseVisualStyleBackColor = true;
+            this.ChengeIdenty.Click += new System.EventHandler(this.ChengeIdenty_Click);
             // 
             // MedicalPage
             // 
@@ -292,6 +353,19 @@
             this.panel3.Size = new System.Drawing.Size(792, 51);
             this.panel3.TabIndex = 2;
             // 
+            // button3
+            // 
+            this.button3.Image = global::AppInformPrivateSecurity.Properties.Resources.ExcelPicture__32x32_;
+            this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button3.Location = new System.Drawing.Point(577, 3);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(207, 42);
+            this.button3.TabIndex = 1;
+            this.button3.Text = "Направление на мед. комиссию";
+            this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // AddMedicalComission
             // 
             this.AddMedicalComission.Location = new System.Drawing.Point(8, 3);
@@ -338,19 +412,6 @@
             this.panel1.Size = new System.Drawing.Size(800, 66);
             this.panel1.TabIndex = 15;
             // 
-            // button3
-            // 
-            this.button3.Image = global::AppInformPrivateSecurity.Properties.Resources.ExcelPicture__32x32_;
-            this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button3.Location = new System.Drawing.Point(577, 3);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(207, 42);
-            this.button3.TabIndex = 1;
-            this.button3.Text = "Направление на мед. комиссию";
-            this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
             // Сharacteristic
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -367,6 +428,10 @@
             this.EmployeePage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgPhoto)).EndInit();
             this.IdentityPage.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataIdentityCard)).EndInit();
+            this.flowLayoutPanel1.ResumeLayout(false);
             this.MedicalPage.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridMedical)).EndInit();
@@ -404,5 +469,10 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Button AddMedicalComission;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.DataGridView dataIdentityCard;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.Button CreateIdentityCard;
+        private System.Windows.Forms.Button ChengeIdenty;
     }
 }

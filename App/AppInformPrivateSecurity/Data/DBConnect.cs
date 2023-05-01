@@ -60,6 +60,7 @@ namespace AppInformPrivateSecurity.Data
     }
     #endregion
 
+    #region Получение данных о работнике форма характеристика
     public class Employeer : СreateQuery
     {
 
@@ -98,7 +99,7 @@ namespace AppInformPrivateSecurity.Data
         {
             try
             {
-                string Query = "exec [dbo].[AddEmployee] '" + name + "', '" + surname + "', '" + middleNema + "', '" + birthday + "', '" + telefon + "', '" + photo + "';";
+                string Query = "EXEC [dbo].[AddEmployee] '" + name + "', '" + surname + "', '" + middleNema + "', '" + birthday + "', '" + telefon + "', '" + photo + "';";
                 return executeRequestIsert(Query);
 
             }
@@ -122,6 +123,7 @@ namespace AppInformPrivateSecurity.Data
             return getElement(Query);
         }
         #endregion
+
         #region Получить данные о медецинской комиссии
         /// <summary>
         /// Получить данные о медециннской комиссии работника
@@ -130,9 +132,9 @@ namespace AppInformPrivateSecurity.Data
         /// <returns></returns>
         public DataTable MedicalCommission(string id)
         {
-            string Query = @"select m.[name] as 'Клиника', m.[code] as 'Код', m.[Date] as 'Дата прохождения', m.[valiedPeriod] as 'Количество мес. действия', DATEADD(MONTH,valiedPeriod,Date) as 'Дата продления'
-                             from dbo.v_MedicalCommission m 
-                             where m.workersId = " + id;
+            string Query = @"SELECT m.[name] as 'Клиника', m.[code] as 'Код', m.[Date] as 'Дата прохождения', m.[valiedPeriod] as 'Количество мес. действия', DATEADD(MONTH,valiedPeriod,Date) as 'Дата продления'
+                             FROM dbo.v_MedicalCommission m 
+                             WHERE m.workersId = " + id;
             return getContent(Query);
         }
         #endregion
@@ -142,11 +144,121 @@ namespace AppInformPrivateSecurity.Data
         /// <returns></returns>
         public List<string> getIdLastInsertEmploeer()
         {
-            string Query = "SELECT top 1 id FROM [dbo].[Workers] order by id desc"; //тут типа ошибка новичка но не очень такая существенная 
+            string Query = "SELECT top 1 id FROM [dbo].[Workers] ORDER BY id DESC"; //тут типа ошибка новичка но не очень такая существенная 
             return getElement(Query);
         }
-    }
 
+        /// <summary>
+        /// Заполнить Grid c Индитификатором работников
+        /// </summary>
+        /// <param name="id">ид работника</param>
+        /// <returns></returns>
+        internal DataTable IdentityCard(string id)
+        {
+            string Query = "SELECT * FROM v_IdentityCard WHERE id = " + id + "ORDER BY [Дата получения], [Срок действия до] DESC";
+            return getContent(Query);
+        }
+
+        internal List<string> getWorker(string id)
+        {
+            string Query = "SELECT * FROM v_shortInfoAboutPerson where id = " + id;
+            return getElement(Query);
+        }
+
+        internal bool setPeriodCommission(string id, string dateExam)
+        {
+            ///нужна проверка что у человека не назначена провека на другое число и если назначено то удаляем старое вставляем все по новый
+            string Query = "SELECT id FROM PeriodicInspection WHERE workerId = " + id + " AND (DATECREATE BETWEEN GETDATE() AND '" + dateExam + "' OR DATECREATE>=GETDATE())";
+            List<string> result = getElement(Query);
+            if (result.Count > 0)
+            {
+                foreach (string str in result)
+                {
+                    /// Если мы тут у этого человека назначена проверка знания на какуюто другую дату между сегодня и новой датой сдачи.
+                    /// Следовательно удаляем старую атестацию и назначаем по новой.
+                    Query = "DELETE FROM PeriodicInspection WHERE id = " + str;
+                    executeRequest(Query);
+                }
+            }
+            ///Назначаем дату сдачи экзамена
+            Query = "INSERT INTO PeriodicInspection(dateCreate, workerid) VALUES ('" + dateExam + "', " + id + ")";
+            return executeRequest(Query);
+        }
+    }
+    #endregion
+
+    #region Получение данных об образовании работника (корочка охраника) дата окончания группа доспупа и.т.д
+    class IdentityCardData : СreateQuery
+    {
+        // Возможно этот код нам еще понадобится так что применяем паттерн одиночка
+        static IdentityCardData instance;
+        public static IdentityCardData IdentityCard()
+        {
+            if (instance == null)
+            {
+                instance = new IdentityCardData();
+            }
+            return instance;
+        }
+        private IdentityCardData()
+        {
+
+        }
+
+        //получить разряды в cmbDischarge
+        public List<string> getDischarge()
+        {
+            string Query = "select discription from v_Discharge";
+            return getElement(Query);
+        }
+
+        //Получить учебные заведения из списка учебных заведений
+        public List<string> getEducationalInstitutions()
+        {
+            string Query = "select Name from dbo.EducationalInstitutions";
+            return getElement(Query);
+        }
+
+        /// <summary>
+        /// создаем удостоверение охраника.
+        /// </summary>
+        /// <param name="discarge"></param>
+        /// <param name="dateCreates"></param>
+        /// <param name="nTerm"></param>
+        /// <param name="codeEducation"></param>
+        /// <param name="dateEducations"></param>
+        /// <param name="nameEducational"></param>
+        internal void createIndentityCard(string id, string discarge, string dateCreates, string nTerm, string codeEducation, string dateEducations, string nameEducational)
+        {
+            string Query = "exec dbo.createIdentityCard " + id + ",'" + discarge + "', '" + dateCreates + "', " + nTerm + ", '" + codeEducation + "', '" + dateEducations + "', '" + nameEducational + "';";
+            executeRequest(Query);
+
+        }
+        /// <summary>
+        /// обновляем удостоверение охранника.
+        /// </summary>
+        /// <param name="id">id identity card</param>
+        /// <param name="discarge"></param>
+        /// <param name="dateCreates"></param>
+        /// <param name="nTerm"></param>
+        /// <param name="codeEducation"></param>
+        /// <param name="dateEducations"></param>
+        /// <param name="nameEducational"></param>
+        public void updateIndentityCard(string id, string discarge, string dateCreates, string nTerm, string codeEducation, string dateEducations, string nameEducational)
+        {
+            string Query = "exec dbo.[updateIdentityCard] " + id + ",'" + discarge + "', '" + dateCreates + "', " + nTerm + ", '" + codeEducation + "', '" + dateEducations + "', '" + nameEducational + "';";
+            executeRequest(Query);
+        }
+        public List<string> getIdentityCard(string id)
+        {
+            string Query = "select * from v_idenityCard where id = " + id; // найдем заслуги человека 
+            return getElement(Query);
+        }
+
+    }
+    #endregion
+
+    #region Медецинская форма
     public class MedicalForm : СreateQuery
     {
         /// <summary>
@@ -174,6 +286,7 @@ namespace AppInformPrivateSecurity.Data
         }
 
     }
+    #endregion
 
     #region Класс DBService предостовляет робочую область выполнения запросов в пространстве "cправочников"
     public class DBServiceSpr : СreateQuery
@@ -261,6 +374,62 @@ namespace AppInformPrivateSecurity.Data
             return executeRequest(Query);
         }
 
+    }
+    #endregion
+
+    #region Авторизация пользователей 
+    class Authorization : СreateQuery
+    {
+        /// <summary>
+        /// Получить список пользователей
+        /// </summary>
+        /// <returns></returns>
+        public List<string> getUsers()
+        {
+            string Query = "select [name] from AppUser order by [name] asc";
+            return getElement(Query);
+        }
+
+        internal bool checkPassword(string users, string password)
+        {
+            string Quer = "select * from AppUser where name = '" + users.Trim() + "'  and password ='" + password.Trim() + "'";
+            if (getElement(Quer).Count > 0)
+            {
+                return true; // если что то есть то возвращаем истина.
+            }
+            else
+            {
+                return false; // если такого пользователя и пароля нет возврашаем лож.
+            };
+        }
+    }
+    #endregion
+
+    #region Администрироване пользователей
+    class AdministrationUsers : СreateQuery
+    {
+        public DataTable GetUsers()
+        {
+            string Query = "SELECT [id], [name] as 'Имя', [password] as 'Пароль' FROM AppUser  order by [name] asc";
+            return getContent(Query);
+        }
+        /// <summary>
+        /// Пробелы не учитываются
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        internal bool AddUsers(string name, string password)
+        {
+            string Query = "INSERT INTO AppUser([name], [password]) VALUES ('" + name.Trim() + "', '" + password.Trim() + "')";
+            return executeRequest(Query);
+        }
+
+        internal bool DeleteUser(string userId)
+        {
+            string Qurey = "DELETE FROM [AppUser] where id = " + userId + "";
+            return executeRequest(Qurey);
+        }
     }
     #endregion
 
@@ -397,7 +566,7 @@ namespace AppInformPrivateSecurity.Data
     }
     #endregion
 
-    #region DBException для отлавливания разных ошибок.
+    #region DBException для отлавливания (обработке) разных ошибок.
     /// Отлавливаем разные ошибки будем знать где они произошли и что за ошибки.
     public class DBException : Exception
     {

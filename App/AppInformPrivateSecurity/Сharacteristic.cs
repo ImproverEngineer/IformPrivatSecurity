@@ -38,12 +38,16 @@ namespace AppInformPrivateSecurity
                 middleBox.Text = ls[2];
                 dataBirthday.Value = DateTime.Parse(ls[3]);
                 phoneBox.Text = ls[4];
-                Bitmap image = new Bitmap(ls[5]);
-                imgPhoto.Image = image;
-                imgPhoto.Invalidate();
+                if (ls[5] != "")
+                {
+                    Bitmap image = new Bitmap(ls[5]);
+                    imgPhoto.Image = image;
+                    imgPhoto.Invalidate();
+                }
                 MedicalPage.Parent = tabEmployee;
                 IdentityPage.Parent = tabEmployee;
                 UpdateDataGridMedical(this.id); // обновление таблицы работников
+                UpdateDataGridIdentityCard(this.id); //
                 // получить фото
                 // заполнить поля
             }
@@ -52,6 +56,12 @@ namespace AppInformPrivateSecurity
         private void UpdateDataGridMedical(string id)
         {
             dataGridMedical.DataSource = employeer.MedicalCommission(id);
+        }
+        private void UpdateDataGridIdentityCard(string id)
+        {
+            dataIdentityCard.DataSource = employeer.IdentityCard(id);
+            dataIdentityCard.Columns["id"].Visible = false; //
+            dataIdentityCard.Columns["ic_id"].Visible = false; // Для изменения
         }
 
         /// <summary>
@@ -83,6 +93,8 @@ namespace AppInformPrivateSecurity
             if (string.IsNullOrEmpty(id))
             {
                 saveEmploer();
+                this.DialogResult = DialogResult.OK;
+                Close();
             }
             else
             {
@@ -124,6 +136,27 @@ namespace AppInformPrivateSecurity
         private void button3_Click(object sender, EventArgs e)
         {
             PrintMedicalDirection medicalDirection = new PrintMedicalDirection(informatinWorker);
+        }
+
+        private void CreateIdentityCard_Click(object sender, EventArgs e)
+        {
+            //Создать идентификатор человеки
+            IdentityCard identityCard = new IdentityCard(this.id);
+            if (identityCard.ShowDialog() == DialogResult.OK)
+            {
+                UpdateDataGridIdentityCard(this.id);
+            }
+
+        }
+
+        private void ChengeIdenty_Click(object sender, EventArgs e)
+        {
+            IdentityCard identityCard = new IdentityCard(this.id, dataIdentityCard["ic_id", dataIdentityCard.CurrentCell.RowIndex].Value.ToString());
+            if (identityCard.ShowDialog() == DialogResult.OK)
+            {
+                UpdateDataGridIdentityCard(this.id);
+            }
+
         }
     }
 }

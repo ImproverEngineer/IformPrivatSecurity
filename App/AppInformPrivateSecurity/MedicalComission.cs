@@ -27,15 +27,35 @@ namespace AppInformPrivateSecurity
         }
         private void initElements(List<string> lMedical)
         {
-            combo_Centers.SelectedIndex = combo_Centers.Items.IndexOf(lMedical[0]);
-            textBoxCod.Text = lMedical[1];
-            if (lMedical[2] != "")
+            bool HaslMedical = true; //т.к. много тестовых значений до начала строителства приложения проверяем данные на наличие.
+            if (lMedical.Count != 0)
+            {
+                combo_Centers.SelectedIndex = combo_Centers.Items.IndexOf(lMedical[0]);
+                textBoxCod.Text = lMedical[1];
+            }
+            else
+            {
+                HaslMedical = false;
+                combo_Centers.SelectedIndex = 0;
+                textBoxCod.Text = "";
+            }
+            if (HaslMedical && lMedical[2] != "")
             {
                 dateCreate.Value = DateTime.Parse(lMedical[2]);
+
+            }
+            else
+            {
+                dateCreate.Value = DateTime.Now;
+            }
+            if (HaslMedical && lMedical[3] != "")
+            {
                 numMonthValid.Value = int.Parse(lMedical[3]);
             }
-            dateCreate.Value = DateTime.Now;
-            numMonthValid.Value = 12; // начиная от начала года. 
+            else
+            {
+                numMonthValid.Value = 12;
+            }
         }
         private void button1_Click(object sender, EventArgs e)
         {
