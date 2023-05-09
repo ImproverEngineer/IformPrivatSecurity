@@ -200,6 +200,7 @@ namespace AppInformPrivateSecurity
         {
             string dateExam = "";
             DatePeriodicCommission datePeriodicCommission = new DatePeriodicCommission();
+            List<string> Message = new List<string>();
             if (datePeriodicCommission.ShowDialog() == DialogResult.OK)
             {
                 dateExam = datePeriodicCommission.DateExam;
@@ -212,7 +213,14 @@ namespace AppInformPrivateSecurity
                         //Ошибка записи данных.
                         MessageBox.Show("Ошибка записи данных", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
+                    Message.Add(dataGridEmploers["Фамилия", SelecedRowID[i]].Value.ToString() + " " + dataGridEmploers["Имя", SelecedRowID[i]].Value.ToString()[0] + "." + dataGridEmploers["Отчество", SelecedRowID[i]].Value.ToString()[0] + ".");
                 }
+                string message = "Отправлены на переодическую проверку " + dateExam.Substring(6, 2) + "." + dateExam.Substring(4, 2) + "." + dateExam.Substring(0, 4) + "\n";
+                foreach (string s in Message)
+                {
+                    message += s + " \n";
+                }
+                MessageBox.Show(message, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }

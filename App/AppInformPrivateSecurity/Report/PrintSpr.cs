@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,6 +33,75 @@ namespace AppInformPrivateSecurity.Report
         }
     }
     #endregion
+
+    internal class PrintPeriodicInspection : Print
+    {
+        DataGridView gridView;
+        public PrintPeriodicInspection(DataGridView dataGrid)
+        {
+            this.gridView = dataGrid;
+            string path = Environment.CurrentDirectory;
+            this.app = new Excel.Application
+            {
+                Visible = true,
+                SheetsInNewWorkbook = 1
+            };
+            this.wb = app.Workbooks.Open(path + @"\Tamplate\Уведомление на периодическую проверку.xltx");
+            this.sheet = (Excel.Worksheet)app.Worksheets["Уведомление на П.П."];
+            int row = 32;
+            Excel.Range cell1 = sheet.Cells[row, 1];
+            Excel.Range cell2 = sheet.Cells[row, 38];
+            Excel.Range range1 = sheet.get_Range(cell1, cell2);
+            app.Visible = true;
+            range1.Copy();
+            int tempRow = row;
+            for (int i = 0; i < this.gridView.RowCount; i++)
+            {
+                tempRow = copyRange(tempRow, range1);
+            }
+
+            int number = 1;
+            //  выгрузить данные 
+            for (int i = 0; i < this.gridView.RowCount; i++)
+            {
+                sheet.Cells[row, 1] = number.ToString();
+                sheet.Cells[row, 4] = this.gridView["Ф.И.О", i].Value;
+                sheet.Cells[row, 15] = this.gridView["Разряд охраника", i].Value;
+                number++;
+                row++;
+            }
+
+            // показываем отчет
+            this.Dispose();
+        }
+        #region подготавливаем облость для вставки
+        /// <summary>
+        /// копирование полей 
+        /// </summary>
+        /// <param name="row">строка</param>
+        /// <param name="range">область выделения</param>
+        /// <returns></returns>
+        private int copyRange(int row, Excel.Range range)
+        {
+            Excel.Range cell3 = sheet.Cells[row, 1];
+            Excel.Range cell4 = sheet.Cells[row, 38];
+            Excel.Range range2 = sheet.get_Range(cell3, cell4);
+            range.Copy();
+            range2.PasteSpecial();
+            Excel.Range range3 = sheet.get_Range((Excel.Range)sheet.Cells[row, 1], (Excel.Range)sheet.Cells[row, 3]);
+            range3.Merge(Type.Missing);
+            Excel.Range range4 = sheet.get_Range((Excel.Range)sheet.Cells[row, 4], (Excel.Range)sheet.Cells[row, 14]);
+            range4.Merge(Type.Missing);
+            Excel.Range range5 = sheet.get_Range((Excel.Range)sheet.Cells[row, 15], (Excel.Range)sheet.Cells[row, 26]);
+            range5.Merge(Type.Missing);
+            Excel.Range range6 = sheet.get_Range((Excel.Range)sheet.Cells[row, 27], (Excel.Range)sheet.Cells[row, 33]);
+            range6.Merge(Type.Missing);
+            Excel.Range range7 = sheet.get_Range((Excel.Range)sheet.Cells[row, 34], (Excel.Range)sheet.Cells[row, 38]);
+            range7.Merge(Type.Missing);
+            return ++row;
+        }
+        #endregion
+    }
 
     #region Отчёт по справочникам.
     internal class PrintSpr : Print

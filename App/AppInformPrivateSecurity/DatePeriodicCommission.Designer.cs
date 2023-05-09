@@ -86,6 +86,7 @@
             this.Controls.Add(this.dateTimeExam);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "DatePeriodicCommission";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Назначить дату периодической комиссии";
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -29,23 +29,24 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.добавитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.переодическаяПроверкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.справочникиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.dataGridEmploers = new System.Windows.Forms.DataGridView();
-            this.listBox1 = new System.Windows.Forms.ListBox();
             this.добавитьПользователяToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.справочникиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.медецинскиеЦентрыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.разрядToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.учебныеЦентрыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.dataGridEmploers = new System.Windows.Forms.DataGridView();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.отрправитьНаПереодическуюПроверкуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -85,19 +86,26 @@
             this.добавитьToolStripMenuItem.Text = "Добавить работника";
             this.добавитьToolStripMenuItem.Click += new System.EventHandler(this.добавитьToolStripMenuItem_Click);
             // 
-            // выходToolStripMenuItem
-            // 
-            this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
-            this.выходToolStripMenuItem.Text = "Выход";
-            this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
-            // 
             // переодическаяПроверкаToolStripMenuItem
             // 
             this.переодическаяПроверкаToolStripMenuItem.Name = "переодическаяПроверкаToolStripMenuItem";
             this.переодическаяПроверкаToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.переодическаяПроверкаToolStripMenuItem.Text = "Периодическая проверка ";
             this.переодическаяПроверкаToolStripMenuItem.Click += new System.EventHandler(this.переодическаяПроверкаToolStripMenuItem_Click);
+            // 
+            // добавитьПользователяToolStripMenuItem
+            // 
+            this.добавитьПользователяToolStripMenuItem.Name = "добавитьПользователяToolStripMenuItem";
+            this.добавитьПользователяToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.добавитьПользователяToolStripMenuItem.Text = "Добавить пользователя";
+            this.добавитьПользователяToolStripMenuItem.Click += new System.EventHandler(this.добавитьПользователяToolStripMenuItem_Click);
+            // 
+            // выходToolStripMenuItem
+            // 
+            this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
+            this.выходToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.выходToolStripMenuItem.Text = "Выход";
+            this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
             // 
             // справочникиToolStripMenuItem
             // 
@@ -108,6 +116,30 @@
             this.справочникиToolStripMenuItem.Name = "справочникиToolStripMenuItem";
             this.справочникиToolStripMenuItem.Size = new System.Drawing.Size(94, 20);
             this.справочникиToolStripMenuItem.Text = "Справочники";
+            // 
+            // медецинскиеЦентрыToolStripMenuItem
+            // 
+            this.медецинскиеЦентрыToolStripMenuItem.Image = global::AppInformPrivateSecurity.Properties.Resources.medical_center;
+            this.медецинскиеЦентрыToolStripMenuItem.Name = "медецинскиеЦентрыToolStripMenuItem";
+            this.медецинскиеЦентрыToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.медецинскиеЦентрыToolStripMenuItem.Text = "Медецинские центры";
+            this.медецинскиеЦентрыToolStripMenuItem.Click += new System.EventHandler(this.медецинскиеЦентрыToolStripMenuItem_Click);
+            // 
+            // разрядToolStripMenuItem
+            // 
+            this.разрядToolStripMenuItem.Image = global::AppInformPrivateSecurity.Properties.Resources.job;
+            this.разрядToolStripMenuItem.Name = "разрядToolStripMenuItem";
+            this.разрядToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.разрядToolStripMenuItem.Text = "Разряд";
+            this.разрядToolStripMenuItem.Click += new System.EventHandler(this.разрядToolStripMenuItem_Click);
+            // 
+            // учебныеЦентрыToolStripMenuItem
+            // 
+            this.учебныеЦентрыToolStripMenuItem.Image = global::AppInformPrivateSecurity.Properties.Resources.school;
+            this.учебныеЦентрыToolStripMenuItem.Name = "учебныеЦентрыToolStripMenuItem";
+            this.учебныеЦентрыToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.учебныеЦентрыToolStripMenuItem.Text = "Учебные центры";
+            this.учебныеЦентрыToolStripMenuItem.Click += new System.EventHandler(this.учебныеЦентрыToolStripMenuItem_Click);
             // 
             // оПрограммеToolStripMenuItem
             // 
@@ -138,6 +170,14 @@
             this.dataGridEmploers.AllowUserToAddRows = false;
             this.dataGridEmploers.AllowUserToDeleteRows = false;
             this.dataGridEmploers.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridEmploers.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridEmploers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridEmploers.ContextMenuStrip = this.contextMenuStrip1;
             this.dataGridEmploers.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -151,6 +191,20 @@
             this.dataGridEmploers.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridEmploers_CellDoubleClick);
             this.dataGridEmploers.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dataGridEmploers_MouseClick);
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.отрправитьНаПереодическуюПроверкуToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(301, 26);
+            // 
+            // отрправитьНаПереодическуюПроверкуToolStripMenuItem
+            // 
+            this.отрправитьНаПереодическуюПроверкуToolStripMenuItem.Name = "отрправитьНаПереодическуюПроверкуToolStripMenuItem";
+            this.отрправитьНаПереодическуюПроверкуToolStripMenuItem.Size = new System.Drawing.Size(300, 22);
+            this.отрправитьНаПереодическуюПроверкуToolStripMenuItem.Text = "Отрправить на переодическую проверку";
+            this.отрправитьНаПереодическуюПроверкуToolStripMenuItem.Click += new System.EventHandler(this.отрправитьНаПереодическуюПроверкуToolStripMenuItem_Click);
+            // 
             // listBox1
             // 
             this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -161,51 +215,6 @@
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(800, 111);
             this.listBox1.TabIndex = 0;
-            // 
-            // добавитьПользователяToolStripMenuItem
-            // 
-            this.добавитьПользователяToolStripMenuItem.Name = "добавитьПользователяToolStripMenuItem";
-            this.добавитьПользователяToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
-            this.добавитьПользователяToolStripMenuItem.Text = "Добавить пользователя";
-            this.добавитьПользователяToolStripMenuItem.Click += new System.EventHandler(this.добавитьПользователяToolStripMenuItem_Click);
-            // 
-            // медецинскиеЦентрыToolStripMenuItem
-            // 
-            this.медецинскиеЦентрыToolStripMenuItem.Image = global::AppInformPrivateSecurity.Properties.Resources.medical_center;
-            this.медецинскиеЦентрыToolStripMenuItem.Name = "медецинскиеЦентрыToolStripMenuItem";
-            this.медецинскиеЦентрыToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-            this.медецинскиеЦентрыToolStripMenuItem.Text = "Медецинские центры";
-            this.медецинскиеЦентрыToolStripMenuItem.Click += new System.EventHandler(this.медецинскиеЦентрыToolStripMenuItem_Click);
-            // 
-            // разрядToolStripMenuItem
-            // 
-            this.разрядToolStripMenuItem.Image = global::AppInformPrivateSecurity.Properties.Resources.job;
-            this.разрядToolStripMenuItem.Name = "разрядToolStripMenuItem";
-            this.разрядToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-            this.разрядToolStripMenuItem.Text = "Разряд";
-            this.разрядToolStripMenuItem.Click += new System.EventHandler(this.разрядToolStripMenuItem_Click);
-            // 
-            // учебныеЦентрыToolStripMenuItem
-            // 
-            this.учебныеЦентрыToolStripMenuItem.Image = global::AppInformPrivateSecurity.Properties.Resources.school;
-            this.учебныеЦентрыToolStripMenuItem.Name = "учебныеЦентрыToolStripMenuItem";
-            this.учебныеЦентрыToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-            this.учебныеЦентрыToolStripMenuItem.Text = "Учебные центры";
-            this.учебныеЦентрыToolStripMenuItem.Click += new System.EventHandler(this.учебныеЦентрыToolStripMenuItem_Click);
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.отрправитьНаПереодическуюПроверкуToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(301, 48);
-            // 
-            // отрправитьНаПереодическуюПроверкуToolStripMenuItem
-            // 
-            this.отрправитьНаПереодическуюПроверкуToolStripMenuItem.Name = "отрправитьНаПереодическуюПроверкуToolStripMenuItem";
-            this.отрправитьНаПереодическуюПроверкуToolStripMenuItem.Size = new System.Drawing.Size(300, 22);
-            this.отрправитьНаПереодическуюПроверкуToolStripMenuItem.Text = "Отрправить на переодическую проверку";
-            this.отрправитьНаПереодическуюПроверкуToolStripMenuItem.Click += new System.EventHandler(this.отрправитьНаПереодическуюПроверкуToolStripMenuItem_Click);
             // 
             // MainWindow
             // 

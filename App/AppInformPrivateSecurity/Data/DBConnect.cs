@@ -14,7 +14,14 @@ namespace AppInformPrivateSecurity.Data
     #region глобальные переменные, но так лучше не делать в реальных проектах это плохая практика.
     public static class GlobalValues
     {
+        /// <summary>
+        /// строка подключения 
+        /// </summary>
         public static string ConnectionString = @"Server=RTDP-COMPUTERS;Database=InformPrivateSecure;Trusted_Connection=True;";
+        /// <summary>
+        /// Количество дней периода проверки следующей инспекции
+        /// </summary>
+        public static int ValidDayPeriodInspection = 12;
     }
     #endregion
 
@@ -405,6 +412,51 @@ namespace AppInformPrivateSecurity.Data
     }
     #endregion
 
+    #region Окно переодической инспекции инспекции 
+    class InitialInspection : СreateQuery
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filter">условия некоторого отбора</param>
+        /// <returns></returns>
+        public DataTable getInspection(string filter = null)
+        {
+            string Query = "";
+
+            if (!string.IsNullOrEmpty(filter))
+            {
+                filter = "WHERE 1=1 " + filter;
+                Query = "SELECT id as id, name as 'Ф.И.О', dateCreate as 'Дата назначения', result as 'Результать сдачи', code as 'Код удостоверения', discription as 'Разряд охраника', dateValidate as 'Дата следующей проверки' FROM v_PeriodicInspection " + filter;
+            }
+            else
+            {
+                Query = "SELECT id as id, name as 'Ф.И.О', dateCreate as 'Дата назначения', result as 'Результать сдачи', code as 'Код удостоверения', discription as 'Разряд охраника', dateValidate as 'Дата следующей проверки' FROM v_PeriodicInspection";
+            }
+            return getContent(Query);
+        }
+        #region Cписок работников у которых либо назначен либо уже был экзамен
+        public List<string> getWorker()
+        {
+            string Query = "SELECT distinct name FROM v_PeriodicInspection ORDER BY name ASC";
+            return getElement(Query);
+        }
+        #endregion
+
+        #region Обновить результаты экзамена 
+        internal bool UpdateResulExam(string id, string result)
+        {
+            string Query = @"UPDATE PeriodicInspection
+                              set result = " + result + ", validate = " + GlobalValues.ValidDayPeriodInspection +
+                             " where id = " + id + " ";
+            return executeRequest(Query);
+        }
+        #endregion
+
+
+    }
+    #endregion
+
     #region Администрироване пользователей
     class AdministrationUsers : СreateQuery
     {
@@ -446,7 +498,7 @@ namespace AppInformPrivateSecurity.Data
 
         #region Выполняем запрос на изменения данных и возврат результата выполнения
         /// <summary>
-        /// Выполняем запрос без возврата
+        /// Выполняем запрос возврат скалярной велечены
         /// </summary>
         /// <param name="Query">Запрос</param>
         /// <returns>результа выполнения</returns>
@@ -502,7 +554,7 @@ namespace AppInformPrivateSecurity.Data
         }
         #endregion
 
-        #region Получить список записей по условию
+        #region Получить список (List()) записей по условию
         /// <summary>
         /// Получить список записей по условию
         /// </summary>
