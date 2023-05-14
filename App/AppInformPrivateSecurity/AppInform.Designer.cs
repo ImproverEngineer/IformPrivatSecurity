@@ -47,6 +47,7 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.отрправитьНаПереодическуюПроверкуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listBox1 = new System.Windows.Forms.ListBox();
+            this.worningЛистToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -74,6 +75,7 @@
             this.добавитьToolStripMenuItem,
             this.переодическаяПроверкаToolStripMenuItem,
             this.добавитьПользователяToolStripMenuItem,
+            this.worningЛистToolStripMenuItem,
             this.выходToolStripMenuItem});
             this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
             this.файлToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
@@ -169,6 +171,7 @@
             // 
             this.dataGridEmploers.AllowUserToAddRows = false;
             this.dataGridEmploers.AllowUserToDeleteRows = false;
+            this.dataGridEmploers.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridEmploers.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
@@ -216,6 +219,13 @@
             this.listBox1.Size = new System.Drawing.Size(800, 111);
             this.listBox1.TabIndex = 0;
             // 
+            // worningЛистToolStripMenuItem
+            // 
+            this.worningЛистToolStripMenuItem.Name = "worningЛистToolStripMenuItem";
+            this.worningЛистToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.worningЛистToolStripMenuItem.Text = "Worning лист";
+            this.worningЛистToolStripMenuItem.Click += new System.EventHandler(this.worningЛистToolStripMenuItem_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -228,6 +238,7 @@
             this.Name = "MainWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Картотека личных карточек";
+            this.Shown += new System.EventHandler(this.MainWindow_Shown);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -259,6 +270,7 @@
         private System.Windows.Forms.ToolStripMenuItem добавитьПользователяToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem отрправитьНаПереодическуюПроверкуToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem worningЛистToolStripMenuItem;
     }
 }
 

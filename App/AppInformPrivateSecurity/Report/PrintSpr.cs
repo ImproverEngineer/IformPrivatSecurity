@@ -1,10 +1,12 @@
-﻿using System;
+﻿using AppInformPrivateSecurity.Data;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace AppInformPrivateSecurity.Report
@@ -34,6 +36,32 @@ namespace AppInformPrivateSecurity.Report
     }
     #endregion
 
+    #region worning list
+    internal class WorningList : Print
+    {
+        public WorningList(List<Employeer.Statistic> statistic)
+        {
+            string path = Environment.CurrentDirectory;
+            this.app = new Excel.Application
+            {
+                Visible = true,
+                SheetsInNewWorkbook = 1
+            };
+            this.wb = app.Workbooks.Open(path + @"\Tamplate\WorningList.xlt");
+            this.sheet = (Excel.Worksheet)app.Worksheets["Worning лист"];
+            app.Visible = true;
+            int row = 4;
+            foreach (Employeer.Statistic stat in statistic)
+            {
+                this.sheet.Cells[row, 1] = stat.name;
+                this.sheet.Cells[row, 2] = stat.Term;
+                this.sheet.Cells[row, 3] = stat.Type;
+                row += 1;
+            }
+            this.Dispose();
+        }
+    }
+    #endregion
     internal class PrintPeriodicInspection : Print
     {
         DataGridView gridView;
@@ -43,7 +71,7 @@ namespace AppInformPrivateSecurity.Report
             string path = Environment.CurrentDirectory;
             this.app = new Excel.Application
             {
-                Visible = true,
+                Visible = false,
                 SheetsInNewWorkbook = 1
             };
             this.wb = app.Workbooks.Open(path + @"\Tamplate\Уведомление на периодическую проверку.xltx");
@@ -52,7 +80,6 @@ namespace AppInformPrivateSecurity.Report
             Excel.Range cell1 = sheet.Cells[row, 1];
             Excel.Range cell2 = sheet.Cells[row, 38];
             Excel.Range range1 = sheet.get_Range(cell1, cell2);
-            app.Visible = true;
             range1.Copy();
             int tempRow = row;
             for (int i = 0; i < this.gridView.RowCount; i++)
@@ -70,7 +97,7 @@ namespace AppInformPrivateSecurity.Report
                 number++;
                 row++;
             }
-
+            app.Visible = true;
             // показываем отчет
             this.Dispose();
         }

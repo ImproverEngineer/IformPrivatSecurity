@@ -29,7 +29,7 @@ namespace AppInformPrivateSecurity.Data
     /// <summary>
     /// Класс предостовляет доступ к базе данных
     /// </summary>
-    internal class DBConnect
+    public class DBConnect
     {
         private SqlConnection cn = null;
         public SqlConnection connect { get { return cn; } }
@@ -70,6 +70,10 @@ namespace AppInformPrivateSecurity.Data
     #region Получение данных о работнике форма характеристика
     public class Employeer : СreateQuery
     {
+        public Employeer() : base()
+        {
+
+        }
 
         #region Получить работников
         /// <summary>
@@ -191,6 +195,57 @@ namespace AppInformPrivateSecurity.Data
             Query = "INSERT INTO PeriodicInspection(dateCreate, workerid) VALUES ('" + dateExam + "', " + id + ")";
             return executeRequest(Query);
         }
+
+        #region Получить статистику по сотрудникам охранного предприятия 
+        /// <summary>
+        /// Получить статистические данные из разных таблиц,
+        /// по сути в этом методе мы реализум фабрику по набору данных,
+        /// к общему методу его не приведешь приходится реализовывать отдельно.
+        /// </summary>
+        /// <returns> список статистических данных </returns>
+        public List<Statistic> getStatistic()
+        {
+            List<Statistic> result = new List<Statistic>(); //  инициализация           
+            string Query = "SELECT id, Name, Term, Type, color FROM v_ShortStatistic order by Name asc";
+            Connect.connect.Open();
+            try
+            {
+                SqlCommand cmd = new SqlCommand(Query, Connect.connect);
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        result.Add(new Statistic
+                        {
+                            id = reader["id"].ToString(),
+                            name = reader["name"].ToString(),
+                            Term = reader["Term"].ToString(),
+                            Type = reader["type"].ToString(),
+                            color = reader["color"].ToString(),
+                        });
+                    }
+                }
+                Connect.connect.Close();
+                return result;
+            }
+            catch (SqlException ex)
+            {
+                this.ErrorString = ex.Message;
+                Connect.connect.Close();
+                return null;
+            }
+        }
+        public class Statistic
+        {
+            public string id { get; set; }
+            public string name { get; set; }
+            public string Term { get; set; }
+            public string Type { get; set; }
+            public string color { get; set; }
+
+        }
+        #endregion
     }
     #endregion
 
@@ -489,8 +544,7 @@ namespace AppInformPrivateSecurity.Data
     public class СreateQuery
     {
         protected String ErrorString = "";
-        private DBConnect Connect;
-
+        protected DBConnect Connect;
         public СreateQuery()
         {
             Connect = DBConnect.createDBConnect();

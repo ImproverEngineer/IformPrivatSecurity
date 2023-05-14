@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AppInformPrivateSecurity.Data;
+using AppInformPrivateSecurity.Report;
 
 namespace AppInformPrivateSecurity
 {
@@ -29,9 +31,6 @@ namespace AppInformPrivateSecurity
             {
                 Environment.Exit(0);
             }
-
-            updateGridEmploers();
-
         }
         /// <summary>
         /// Обновляем таблицу работников
@@ -40,8 +39,55 @@ namespace AppInformPrivateSecurity
         {
             dataGridEmploers.DataSource = employeer.getWorkers();
             dataGridEmploers.Columns["ID"].Visible = false;
+            getStatistic();
         }
+        #region Получить укороченную стаистику из БД 
+        /// <summary>
+        /// Получить статистику
+        /// Выводим статистику из класса работников через внутренний клас статистика
+        /// Обнавляем после обновление общего грида.
+        /// </summary>
+        /// </summary>
+        private List<Employeer.Statistic> getStatistic(bool print = false)
+        {
+            List<Employeer.Statistic> statistics = employeer.getStatistic();
+            foreach (Employeer.Statistic stat in statistics)
+            {
+                foreach (DataGridViewRow row in dataGridEmploers.Rows)
+                {
+                    if (row.Cells["ID"].Value.ToString().Trim() == stat.id.ToString().Trim())
+                    {
+                        row.DefaultCellStyle.BackColor = getColor(stat.color);
+                        for (int index = 0; index < row.Cells.Count; index++)
+                        {
+                            row.Cells[index].ToolTipText = stat.Type;
+                        }
 
+                    }
+                }
+            }
+            Color getColor(string color)
+            {
+                switch (color)
+                {
+                    case "lightRed": return Color.LightPink; break;
+                    case "yellow": return Color.Yellow; break;
+                    case "violet": return Color.Violet; break;
+                    case "Red": return Color.Red; break;
+                }
+                return Color.Empty;
+            }
+            if (print)
+            {
+                return statistics;
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+        #endregion
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
@@ -88,11 +134,6 @@ namespace AppInformPrivateSecurity
                 updateGridEmploers();
             }
         }
-
-
-
-
-
         private void dataGridEmploers_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             Сharacteristic сharacteristic = new Сharacteristic(dataGridEmploers["id", dataGridEmploers.CurrentRow.Index].Value.ToString());
@@ -141,17 +182,16 @@ namespace AppInformPrivateSecurity
             }
             else
             {
-                if (DateTime.Parse(emploer[3]) < DateTime.Now)
+                if (DateTime.Parse(emploer[4]) < DateTime.Now)
                 {
                     listBox1.Items.Add(ErrorChecks[3]);
+                    GraphicsListBox(listBox1, 2);
                 }
                 else
                 {
                     listBox1.Items.Add("Срок действия удостоверения до : " + emploer[4]);
                 }
             }
-            //listBox1.Items.Add("Дата получения удостоверения: " + emploer[4]); if (emploer[4].ToString() == "01.01.1900") { GraphicsListBox(listBox1, 3); }
-
         }
         /// <summary>
         /// Раскрашиваем ListBox что бы видеть что там у пользователя.
@@ -222,6 +262,22 @@ namespace AppInformPrivateSecurity
                 }
                 MessageBox.Show(message, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void MainWindow_Shown(object sender, EventArgs e)
+        {
+            updateGridEmploers();
+        }
+
+        /// <summary>
+        /// Лист предупреждения в фомрате Excel.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void worningЛистToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //
+            new WorningList(getStatistic(true));
         }
     }
 }
